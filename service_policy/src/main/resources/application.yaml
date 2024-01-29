@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: policy
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://120.78.91.241:3306/policy
+  rabbitmq:
+    password: guest
+    username: guest
+    port: 5672
+    addresses: 127.0.0.1
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.78.91.241:8848
+        service: ${spring.application.name}
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapping/*Mapper.xml
+#logging:
+#  config: classpath:log/logback-spring.xml
