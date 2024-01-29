@@ -14,22 +14,22 @@ import org.example.entity.MessageDto;
 import org.example.entity.SocketResponse;
 import org.example.enums.SocketResponseTypeEnum;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class client {
     private static String sessionId;
+
     public static void main(String[] args) {
         client1();
     }
 
-    private static void client1(){
+    private static void client1() {
         Vertx vertx = Vertx.vertx();
         HttpClient client = vertx.createHttpClient();
         MultiMap entries = new HeadersMultiMap();
-        entries.add("sessionId","1");
+        entries.add("sessionId", "1");
         WebSocketConnectOptions options = new WebSocketConnectOptions()
                 .setHost("127.0.0.1")
                 .setPort(8080)
@@ -41,20 +41,21 @@ public class client {
                 System.out.println("Connected!");
                 webSocket.set(res.result());
                 webSocket.get().handler(content -> {
-                    System.out.println("收到消息： "+content);
+                    System.out.println("收到消息： " + content);
                     ObjectMapper objectMapper = new ObjectMapper();
                     try {
                         SocketResponse response = objectMapper.readValue(content.getBytes(), SocketResponse.class);
                         Long type = response.getType();
                         SocketResponseTypeEnum typeEnum = Arrays.stream(SocketResponseTypeEnum.values()).filter(item -> item.getValue().equals(type)).findFirst().orElse(null);
                         if (typeEnum != null) {
-                            switch (typeEnum){
+                            switch (typeEnum) {
                                 // 登录成功
                                 case LOGIN_SUCCESS -> sessionId = response.getSocketSessionId();
                                 // 发送已读消息回调
-                                case MESSAGE -> webSocket.get().writeBinaryMessage(Buffer.buffer(backMsg(response.getMessageId())));
+                                case MESSAGE ->
+                                        webSocket.get().writeBinaryMessage(Buffer.buffer(backMsg(response.getMessageId())));
                             }
-                        }else {
+                        } else {
                             throw new RuntimeException("客户端不支持的消费类型");
                         }
 
@@ -69,8 +70,7 @@ public class client {
             }
         });
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNext())
-        {
+        while (sc.hasNext()) {
             String msg = sc.nextLine();
             System.out.println("发送消息 : " + msg);
             webSocket.get().writeBinaryMessage(Buffer.buffer(sendMsg(msg)));
@@ -78,11 +78,11 @@ public class client {
     }
 
     @SneakyThrows
-    private static String sendMsg(String msg){
+    private static String sendMsg(String msg) {
         MessageDto messageDto = new MessageDto();
         messageDto.setType(0L);
         Message message = new Message();
-        message.setId(MySocket.uuid());
+        message.setId(SocketHandler.uuid());
         message.setContent(msg);
         message.setSenderId("1");
         message.setReceiverId("2");
@@ -90,8 +90,9 @@ public class client {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(messageDto);
     }
+
     @SneakyThrows
-    private static String backMsg(String id){
+    private static String backMsg(String id) {
         MessageDto messageDto = new MessageDto();
         messageDto.setType(2L);
         Message message = new Message();

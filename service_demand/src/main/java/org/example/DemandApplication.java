@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DemandApplication {
     public static void main(String[] args) {
+        // 启动socket
         Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(WebSocketVerticle.class.getName());
         SpringApplication.run(DemandApplication.class, args);

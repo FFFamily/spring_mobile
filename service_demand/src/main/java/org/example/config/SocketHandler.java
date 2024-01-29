@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MySocket implements Handler<ServerWebSocket> {
+public class SocketHandler implements Handler<ServerWebSocket> {
     // 以下模拟数据库操作
     public static List<SocketSession> SocketSessionDataBase = new ArrayList<>();
     // 消息数据库
