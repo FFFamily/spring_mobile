@@ -41,12 +41,10 @@ public class SocketHandler implements Handler<ServerWebSocket> {
     public void handle(ServerWebSocket webSocket) {
         webSocket.accept();
         System.out.println("有人建立连接啦");
-        String sessionId = webSocket.query().split("=")[1];
-        if (sessionId == null) {
-            throw new RuntimeException("位置用户的Socket连接");
+        String userId = webSocket.query().split("=")[1];
+        if (userId == null) {
+            throw new RuntimeException("登录用户不能为空");
         }
-        // TODO 未来待删除代码
-        String userId = sessionId;
         // 获取每一个链接的ID
         String binaryHandlerID = webSocket.binaryHandlerID();
         // 绑定当前用户的 socketID
@@ -55,7 +53,7 @@ public class SocketHandler implements Handler<ServerWebSocket> {
         socketHashMap.putIfAbsent(binaryHandlerID, webSocket);
         // 存储 webSocketSession
         SocketSession socketSession = new SocketSession();
-        socketSession.setId(sessionId);
+        socketSession.setId(userId);
         socketSession.setUserId(userId);
         socketSession.setBinaryHandlerID(binaryHandlerID);
         if (SocketSessionDataBase.stream().anyMatch(item -> item.getUserId().equals(userId))) {
@@ -75,12 +73,12 @@ public class SocketHandler implements Handler<ServerWebSocket> {
 
         webSocket.closeHandler(handle -> {
             // 移除session
-            SocketSession session = SocketSessionDataBase.stream().filter(item -> item.getId().equals(sessionId)).findFirst().orElse(null);
+            SocketSession session = SocketSessionDataBase.stream().filter(item -> item.getId().equals(userId)).findFirst().orElse(null);
             if (session == null) {
                 System.out.println("不存在对应session");
             }
             SocketSessionDataBase.remove(session);
-            System.out.println("已将对应用户移出" + sessionId);
+            System.out.println("已将对应用户移出" + userId);
 //            System.out.println("当前登录的人员有: " + SocketSessionDataBase.stream().map(SocketSession::getUserId).collect(Collectors.joining("、")));
         });
 

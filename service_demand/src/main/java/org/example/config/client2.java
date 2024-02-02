@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class client2 extends CommonClient {
+public class client2 {
     private String sessionId;
 
     public static void main(String[] args) {
