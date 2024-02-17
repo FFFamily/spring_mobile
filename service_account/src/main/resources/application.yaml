@@ -1,6 +1,8 @@
 server:
   port: 8083
 spring:
+  application:
+    name: account
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -32,6 +34,10 @@ spring:
     #支持消息的确认与返回
     template:
       mandatory: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.78.91.241:8848
 
 
 mybatis-plus:

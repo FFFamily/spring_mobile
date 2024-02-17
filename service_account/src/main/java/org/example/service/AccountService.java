@@ -1,5 +1,6 @@
 package org.example.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.example.entity.Account;
 import org.example.enums.RoleTypeEnum;
@@ -28,13 +29,18 @@ public class AccountService {
         return accountMapper.selectById(accountId);
     }
 
+    public Account findAccountIdByUserName(String userName){
+        log.info("【查询业务员】{}", userName);
+        return accountMapper.selectOne(new QueryWrapper<>());
+    }
+
     public void register(Account account) {
         log.info("注册用户");
         // 生成 account 信息
         // 相比原系统就是缺少了注册 coreAccountId 以及 生成 personnel
         // 分配权限
         // 默认一开始是 未认证用户
-        account.setRoleType(RoleTypeEnum.USER.getCode());
+//        account.setRoleType(RoleTypeEnum.USER.getCode());
         accountMapper.insert(account);
     }
 }

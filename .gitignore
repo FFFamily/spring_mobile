@@ -34,3 +34,23 @@ build/
 .mvn
 .run
 .DS_Store
+
+
+
+# web
+web/vue-admin-template/.DS_Store
+web/vue-admin-template/node_modules/
+web/vue-admin-template/dist/
+web/vue-admin-template/npm-debug.log*
+web/vue-admin-template/yarn-debug.log*
+web/vue-admin-template/yarn-error.log*
+web/vue-admin-template/package-lock.json
+web/vue-admin-template/tests/**/coverage/
+
+# Editor directories and files
+web/vue-admin-template/.idea
+web/vue-admin-template/.vscode
+web/vue-admin-template/*.suo
+web/vue-admin-template/*.ntvs*
+web/vue-admin-template/*.njsproj
+web/vue-admin-template/*.sln
