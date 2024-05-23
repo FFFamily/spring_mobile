@@ -5,9 +5,11 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Personnel extends CommonEntity{
+public class Personnel extends CommonEntity {
     // 用户名
     private String userName;
+    // 密码
+    private String password;
     // 名称
     private String name;
     // 机构id

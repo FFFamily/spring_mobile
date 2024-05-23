@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/org")
+@RequestMapping("/account/org")
 public class OrgController {
 
     @Resource
@@ -21,7 +21,7 @@ public class OrgController {
      * 创建机构
      */
     @PostMapping("/save")
-    public CommonResponse<Void> addOrg(@RequestBody Org org){
+    public CommonResponse<Void> addOrg(@RequestBody Org org) {
         orgService.addOrg(org);
         return CommonResponse.success();
     }

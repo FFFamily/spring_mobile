@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+const AccountPre = '/account/account';
 
 export function login(data) {
   return request({

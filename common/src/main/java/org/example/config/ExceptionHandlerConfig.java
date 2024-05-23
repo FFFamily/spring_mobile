@@ -21,6 +21,6 @@ public class ExceptionHandlerConfig {
     @ResponseBody
     public CommonResponse<String> handleRuntimeException(RuntimeException e) {
         e.printStackTrace();
-        return CommonResponse.error("系统执行出现错误："+e.getMessage());
+        return CommonResponse.error("系统执行出现错误：" + e.getMessage());
     }
 }

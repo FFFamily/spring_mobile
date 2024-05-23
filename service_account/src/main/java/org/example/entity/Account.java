@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 public class Account extends CommonEntity {
     // 机构|用户 的用户名
     private String userName;
-    // 机构|用户 id
-    private String userId;
     // 密码
     private String password;
+    // account 类型： 机构|人员
+    private Integer accountType;
 }

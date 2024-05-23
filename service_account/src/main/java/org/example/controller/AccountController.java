@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.entity.Account;
 import org.example.entity.CommonResponse;
 import org.example.service.AccountService;
+import org.example.vo.AccountListParamVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,15 +23,14 @@ public class AccountController {
         return CommonResponse.success();
     }
 
+    @PostMapping("/list")
+    public CommonResponse<Object> accountList(@RequestBody AccountListParamVo vo) {
+        return CommonResponse.success(accountService.findAccountList(vo));
+    }
+
     @GetMapping("/findById/{accountId}")
     public CommonResponse<Account> findAccountById(@PathVariable String accountId) {
         return CommonResponse.success(accountService.findAccountById(accountId));
-    }
-
-    @PostMapping("/register")
-    public CommonResponse<Void> register(@RequestBody Account account) {
-        accountService.register(account);
-        return CommonResponse.success();
     }
 
 

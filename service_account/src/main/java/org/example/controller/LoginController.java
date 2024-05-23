@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/management")
 public class LoginController {
     @PostMapping("/login")
-    public CommonResponse<String> login(LoginRequest request){
+    public CommonResponse<String> login(LoginRequest request) {
         String userName = request.getUserName();
 
+        return null;
     }
 }
